@@ -13,6 +13,7 @@ struct powerhrg_standard_take_home_challengeApp: App {
     var body: some Scene {
         WindowGroup {
             UsersListView()
+            
         }
     }
 }
