@@ -20,12 +20,14 @@ class usersListViewModel: ObservableObject {
     }
 }
     
+    // MARK: - usersListViewModel initializer
     init() {
         fetchUsers()
         fetchRooms()
     }
     
     
+    // MARK: - functions for fetching users and rooms
     func fetchUsers() {
         let newUser = [
             person(name: ["John The Baptist"], role: "junior Adviser", profilePic: "u1", active: false, notifications: 6),
@@ -41,18 +43,7 @@ class usersListViewModel: ObservableObject {
             person(name: ["Daymon John"], role: "Chief of Design", profilePic: "u8", active: true, notifications: 95),
         ]
         usersArray.append(contentsOf: newUser)
-
-        
- }
-    
-//    func deleteUser(indexSet: IndexSet) {
-//        usersArray.remove(atOffsets: indexSet)
-//    }
-//
-//    func moveUser(from: IndexSet, to: Int) {
-//        usersArray.move(fromOffsets: from, toOffset: to )
-//    }
-    
+    }
     
     func fetchRooms() {
         let newRoom = [
@@ -68,15 +59,7 @@ class usersListViewModel: ObservableObject {
           
             room(name: "System Operations", topic: "All things support", description: "Support room where Ninjas discuss all things related to supporting the business.", active: true, members: [ person(name: ["John The Baptist"], role: nil, profilePic: "liberty", active: false, notifications: 1), person(name: ["John The Baptist 2"], role: nil, profilePic: "liberty", active: false, notifications: 0), person(name: ["John The Baptist 2"], role: nil, profilePic: "liberty", active: false, notifications: 0), person(name: ["John The Baptist 2"], role: "janitor", profilePic: "liberty", active: false, notifications: 8), person(name: ["John The Baptist 2"], role: nil, profilePic: "liberty", active: false, notifications: 3), person(name: ["John The Baptist 2"], role: nil, profilePic: "liberty", active: false, notifications: 9), person(name: ["John The Baptist 2"], role: nil, profilePic: "liberty", active: false, notifications: 0),], roomPic: "r5"),
         ]
-       
         roomsArray.append(contentsOf: newRoom)
-
-        
- }
-    
- 
-    
-   
-    
+        }
     }
     

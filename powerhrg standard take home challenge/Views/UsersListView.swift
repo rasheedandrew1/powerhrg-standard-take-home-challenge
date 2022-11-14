@@ -7,25 +7,32 @@
 
 import SwiftUI
 
-struct UsersListView: View {
+    struct UsersListView: View {
  
     @StateObject var UsersListViewModel: usersListViewModel = usersListViewModel()
   
     // state properties for navigation bar
-    @State var navBarIconSize : CGFloat = 14
-    @State var navBarIconColor : Color = Color.init("TextColorsLight")
-    @State var navBarProfileButtonName : String = "person.crop.circle"
-    @State var navBarEditButtonName : String = "square.and.pencil"
+        @State var navBarIconSize : CGFloat = Image.MyTheme.iconSize.iconSize1
+    @State var navBarIconColor : Color = Color.MyTheme.TextColors.TextColorsLight
+        @State var navBarProfileButtonName : String = Image.MyTheme.Icons.profileButtonIcon
+        @State var navBarEditButtonName : String = Image.MyTheme.Icons.navBarEditButtonIcon
  
     // state properties for section header
-    @State var sectionTitleColor : Color = Color .init("TextColorsLight")
-    @State var sectionOpenButton : String = "chevron.down"
-    @State var sectionCloseButton : String = "chevron.up"
+    @State var sectionTitleFontSize : CGFloat = Font.MyTheme.FontSize3
+    @State var sectionTitleColor : Color = Color.MyTheme.TextColors.TextColorsLight
+        @State var sectionOpenButton : String = Image.MyTheme.Icons.sectionOpenButtonIcon
+        @State var sectionCloseButton : String = Image.MyTheme.Icons.sectionCloseButtonIcon
+    @State var sectionFontWeight : Font.Weight = Font.Weight.MyTheme.boldFont
+    
+    // state properties for event section
+    @State var eventSectionMessageFontSize : CGFloat = Font.MyTheme.FontSize1
+    @State var eventSectionMessage : String = Text.MyMessage.NoEvents
+    @State var eventSectionMessageColor : Color = Color.MyTheme.TextColors.TextColorsLight
     
     // state properties to display section details
-    @State var showEvent : Bool = false
-    @State var showRoom : Bool = false
-    @State var showPeople : Bool = false
+    @State var showEvent : Bool = Bool.MyTheme.negative
+    @State var showRoom : Bool = Bool.MyTheme.negative
+    @State var showPeople : Bool = Bool.MyTheme.negative
     
     
     var body: some View {
@@ -40,34 +47,35 @@ struct UsersListView: View {
      }
 }
 
-//MARK: preview
-struct UsersListView_Previews: PreviewProvider {
+    // MARK: - preview
+    struct UsersListView_Previews: PreviewProvider {
     static var previews: some View {
         UsersListView()
         .environmentObject(usersListViewModel())
     }
 }
 
-//MARK: extensions
-extension UsersListView {
+    // MARK: - extensions
+    extension UsersListView {
 
-    //MARK: section title structure
+    // MARK: - section title structure
     struct sectionTitle: View {
         var title : String
         var fontSize : CGFloat
         var sectionCount : Int
         var showCount : Bool
         @Binding var sectionTitleColor : Color
+        @Binding var sectionFontWeight : Font.Weight
         var body: some View {
             HStack (spacing: 4){
                 Text(title)
                     .font(.system(size: fontSize))
-                    .fontWeight(.bold)
+                    .fontWeight(sectionFontWeight)
                     .foregroundColor(sectionTitleColor)
                 
                 Text("(\(sectionCount))")
                     .font(.system(size: fontSize))
-                    .fontWeight(.bold)
+                    .fontWeight(sectionFontWeight)
                     .foregroundColor(showCount ? sectionTitleColor : .clear)
                 Spacer()
             }
@@ -75,7 +83,7 @@ extension UsersListView {
     }
     
     
-    //MARK: navigation bar buttons
+    // MARK: - navigation bar buttons
     // nav bar profile button
     private var navBarProfileButton : some View {
         Button(action: {
@@ -97,18 +105,18 @@ extension UsersListView {
     }
     
     
-    //MARK: section header
+    // MARK: - section header
     // event section header view
     private var eventsSectionHeader : some View {
         HStack  {
-            sectionTitle(title: "EVENTS", fontSize: 14, sectionCount: 0, showCount: true, sectionTitleColor: $sectionTitleColor)
+            sectionTitle(title: "EVENTS", fontSize: sectionTitleFontSize, sectionCount: 0, showCount: Bool.MyTheme.positive, sectionTitleColor: $sectionTitleColor, sectionFontWeight: $sectionFontWeight)
             Spacer()
             Image(systemName: showEvent ? sectionOpenButton : sectionCloseButton)
         }
-        .padding(.all, 15)
+        .padding(.all, Spacer.myTheme.large)
         .onTapGesture {
-            showPeople = false
-            showRoom = false
+            showPeople = Bool.MyTheme.negative
+            showRoom = Bool.MyTheme.negative
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 showEvent.toggle()
             }
@@ -118,14 +126,14 @@ extension UsersListView {
     // room section header view
     private var roomsSectionHeader : some View {
         HStack  {
-            sectionTitle(title: "ROOMS", fontSize: 14, sectionCount: UsersListViewModel.roomsArray.count, showCount: true, sectionTitleColor: $sectionTitleColor)
+            sectionTitle(title: "ROOMS", fontSize: sectionTitleFontSize, sectionCount: UsersListViewModel.roomsArray.count, showCount: Bool.MyTheme.positive, sectionTitleColor: $sectionTitleColor, sectionFontWeight: $sectionFontWeight)
             Spacer()
             Image(systemName: showRoom ? sectionOpenButton : sectionCloseButton)
         }
-        .padding(.all, 15)
+        .padding(.all, Spacer.myTheme.large)
         .onTapGesture {
-            showEvent = false
-            showPeople = false
+            showEvent = Bool.MyTheme.negative
+            showPeople = Bool.MyTheme.negative
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     showRoom.toggle()
             }
@@ -135,14 +143,14 @@ extension UsersListView {
     // people section header view
     private var peopleSectionHeader : some View {
         HStack  {
-            sectionTitle(title: "PEOPLE", fontSize: 14, sectionCount: 0, showCount: false, sectionTitleColor: $sectionTitleColor)
+            sectionTitle(title: "PEOPLE", fontSize: sectionTitleFontSize, sectionCount: 0, showCount: Bool.MyTheme.negative, sectionTitleColor: $sectionTitleColor, sectionFontWeight: $sectionFontWeight)
             Spacer()
             Image(systemName: showPeople ? sectionOpenButton : sectionCloseButton)
         }
-        .padding(.all, 15)
+        .padding(.all, Spacer.myTheme.large)
         .onTapGesture {
-            showRoom = false
-            showEvent = false
+            showRoom = Bool.MyTheme.negative
+            showEvent = Bool.MyTheme.negative
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 showPeople.toggle()
             }
@@ -150,17 +158,17 @@ extension UsersListView {
     }
     
     
-    //MARK: sections stack
+    // MARK: - sections stack
     // event section stack
     private var eventSection : some View {
         VStack{
             eventsSectionHeader
             if showEvent {
-                Text("There are no events at the moment. \n please check back later.")
-                    .font(.system(size: 10))
-                    .fontWeight(.bold)
+                Text(eventSectionMessage)
+                    .font(.system(size: eventSectionMessageFontSize))
+                    .fontWeight(sectionFontWeight)
                     .multilineTextAlignment(.center)
-                    .foregroundColor(Color.init("TextColorsLight"))
+                    .foregroundColor(eventSectionMessageColor)
             }
         }
      }
@@ -193,10 +201,10 @@ extension UsersListView {
     }
     
     
-   //MARK: section Stack Card
+    // MARK: - section Stack Card
     // vertical stack of all sections
     private var sectionStackView : some View {
-        ScrollView(.vertical, showsIndicators: false) {
+        ScrollView(.vertical, showsIndicators: Bool.MyTheme.negative) {
             VStack {
                 Divider()
                 eventSection

@@ -18,6 +18,7 @@
 		18C9CBAA291C9B3D001471A2 /* peopleSectionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C9CBA9291C9B3D001471A2 /* peopleSectionCardView.swift */; };
 		18C9CBB4291D4240001471A2 /* roomSectionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C9CBB3291D4240001471A2 /* roomSectionCardView.swift */; };
 		18DD3726291F1E4200ABFEFD /* roomMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD3725291F1E4200ABFEFD /* roomMembersView.swift */; };
+		18DD372A29217FDA00ABFEFD /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD372929217FDA00ABFEFD /* extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		18C9CBA9291C9B3D001471A2 /* peopleSectionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peopleSectionCardView.swift; sourceTree = "<group>"; };
 		18C9CBB3291D4240001471A2 /* roomSectionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = roomSectionCardView.swift; sourceTree = "<group>"; };
 		18DD3725291F1E4200ABFEFD /* roomMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = roomMembersView.swift; sourceTree = "<group>"; };
+		18DD372929217FDA00ABFEFD /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				18C9CB8B291C3D49001471A2 /* powerhrg_standard_take_home_challengeApp.swift */,
+				18DD372829217FA100ABFEFD /* Extensions */,
 				18C9CB9D291C864C001471A2 /* Views */,
 				18C9CB9F291C867C001471A2 /* Models */,
 				18C9CBA4291C8EEC001471A2 /* ViewModel */,
@@ -110,6 +113,14 @@
 				18C9CBA5291C8F28001471A2 /* usersListViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		18DD372829217FA100ABFEFD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				18DD372929217FDA00ABFEFD /* extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,6 +198,7 @@
 				18C9CBA3291C86D2001471A2 /* person.swift in Sources */,
 				18C9CB9A291C5BBB001471A2 /* UsersListView.swift in Sources */,
 				18C9CBA6291C8F28001471A2 /* usersListViewModel.swift in Sources */,
+				18DD372A29217FDA00ABFEFD /* extensions.swift in Sources */,
 				18C9CBA1291C86C1001471A2 /* room.swift in Sources */,
 				18DD3726291F1E4200ABFEFD /* roomMembersView.swift in Sources */,
 				18C9CBAA291C9B3D001471A2 /* peopleSectionCardView.swift in Sources */,

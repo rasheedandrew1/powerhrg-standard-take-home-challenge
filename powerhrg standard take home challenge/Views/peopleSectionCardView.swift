@@ -7,46 +7,55 @@
 
 import SwiftUI
 
-struct peopleSectionCardView: View {
-    
-    @EnvironmentObject var usersListViewModel: usersListViewModel
-    let user : person
-    
-    // state properties for user profile picture
-    @State var userProfilePicSize : CGFloat = 40
-    
-    // state properties for user profile online status
-    @State var userOnlineColor : Color = Color.init("Success")
-    @State var userOnlineBorderColor : Color = Color.init("Border")
-    @State var userOnlineCircleFrameSize : CGFloat = 8
-    
-    // state properties for user count status
-    @State var userCountStatusColor : Color = Color.init("SuccessSubtle")
-    @State var userCountStatusTextColor : Color = Color.init("Actions")
-    @State var userCountStatusBorderColor : Color = Color.init("Border")
-    @State var userCountStatusCircleFrameSize : CGFloat = 18
-    
-    // state properties for users name
-    @State var userNameFontSize : CGFloat = 15
-    @State var userNameTextColor : Color = Color .init("TextColorsDefalut")
-    
-    // state properties for user role
-    @State var userRolefontSize : CGFloat = 12
-    @State var userRoleTextColor : Color = Color .init("TextColorsDefalut")
-    
-    // state properties for user notifications
-    @State var userNotificationFontSize : CGFloat = 10
-    @State var userNotificationBackgroundSize : CGFloat = 20
-    @State var userNotificationBackground : Color = Color.init("Actions")
-    
-    var body: some View {
-          personCard
-         .environmentObject(usersListViewModel)
-        }
-    }
+     struct peopleSectionCardView: View {
 
-//MARK: preview
-struct peopleSectionCardView_Previews: PreviewProvider {
+@EnvironmentObject var usersListViewModel: usersListViewModel
+let user : person
+
+// state properties for user profile picture
+         @State var userProfilePicSize : CGFloat = Image.MyTheme.imageSize.imageSize1
+
+// state properties for user profile online status
+@State var userOnlineColor : Color = Color.MyTheme.statusColors.Success
+@State var userOnlineBorderColor : Color = Color.MyTheme.borderColors.Border
+@State var userOnlineCircleFrameSize : CGFloat = Circle.MyTheme.Circle1
+@State var userOnlineCircleBackgroundBorderWidth: CGFloat = Circle.MyTheme.lineWidth3
+
+// state properties for user count status
+@State var userCountStatusColor : Color = Color.MyTheme.statusColors.subtleVariationColors.SuccessSubtle
+@State var userCountStatusTextColor : Color = Color.MyTheme.actionColors.Actions
+@State var userCountStatusTextFontWeight : Font.Weight = Font.Weight.MyTheme.heavyFont
+@State var userCountStatusBorderColor : Color = Color.MyTheme.borderColors.Border
+@State var userCountStatusBackgroundBorderWidth: CGFloat = Circle.MyTheme.lineWidth3
+@State var userCountStatusCircleFrameSize : CGFloat = Circle.MyTheme.Circle2
+
+// state properties for users name
+@State var userNameFontSize : CGFloat = Font.MyTheme.FontSize4
+        @State var userNameTextColor : Color = Color.MyTheme.TextColors.TextColorsDefalut
+@State var userNameFontWeight : Font.Weight = Font.Weight.MyTheme.boldFont
+
+// state properties for user role
+@State var userRolefontSize : CGFloat = Font.MyTheme.FontSize2
+@State var userRoleTextColor : Color = Color.MyTheme.TextColors.TextColorsDefalut
+@State var userRoleFontWeight : Font.Weight = Font.Weight.MyTheme.regularFont
+        
+// state properties for user notifications
+@State var userNotificationFontSize : CGFloat = Font.MyTheme.FontSize1
+@State var userNotificationFontWeight : Font.Weight = Font.Weight.MyTheme.boldFont
+@State var userNotificationBackgroundSize : CGFloat = Circle.MyTheme.Circle3
+@State var userNotificationBackgroundColor : Color = Color.MyTheme.actionColors.Actions
+@State var zeroUserNotificationBackgroundColor : Color = Color.MyTheme.otherColors.clear
+@State var zeroNotificationTextColor : Color = Color.MyTheme.otherColors.clear
+@State var someNotificationTextColor : Color = Color.MyTheme.otherColors.white
+
+var body: some View {
+        personCard
+        .environmentObject(usersListViewModel)
+    }
+}
+
+    // MARK: - preview
+     struct peopleSectionCardView_Previews: PreviewProvider {
     static var someUser = person(name: ["joe Biden", "Kamala Harris",], role: "president & Vice president", profilePic: "liberty", active: true, notifications: 5)
     
     static var previews: some View {
@@ -54,23 +63,24 @@ struct peopleSectionCardView_Previews: PreviewProvider {
         .environmentObject(usersListViewModel())
         .previewLayout(.sizeThatFits)
     }
-}
+    }
 
-//MARK: extension
-extension peopleSectionCardView {
+    // MARK: - extension
+    extension peopleSectionCardView {
    
-    // MARK: users name structure
+    // MARK: - users name structure
     struct usersNameView: View {
         let user: person
         @Binding var userNameFontSize : CGFloat
         @Binding var userNameTextColor : Color
+        @Binding var userNameFontWeight : Font.Weight
         
         var body: some View {
             HStack{
                 ForEach(user.name.indices,  id: \.self) { item in
                     Text(user.name[item])
                         .font(.system(size: userNameFontSize))
-                                 .fontWeight(.bold)
+                                 .fontWeight(userNameFontWeight)
                                  .foregroundColor(userNameTextColor)
                                  .lineLimit(1)
                 }
@@ -79,22 +89,24 @@ extension peopleSectionCardView {
     }
   
     
-    // MARK: users role structure
+    // MARK: - users role structure
     struct usersRoleView: View {
         let user: person
         @Binding var userRolefontSize : CGFloat
         @Binding var userRoleTextColor : Color
+        @Binding var userRoleFontWeight : Font.Weight
+        
         var body: some View {
             Text(user.role ?? "")
                 .font(.system(size: userRolefontSize))
-                         .fontWeight(.regular)
+                         .fontWeight(userRoleFontWeight)
                          .foregroundColor(userRoleTextColor )
         }
 
     }
     
     
-    // MARK: users profile pic, online status and count variables
+    // MARK: - users profile pic, online status and count variables
     // user profile pic
     private var userProfilePic: some View {
         Image(user.profilePic)
@@ -116,7 +128,7 @@ extension peopleSectionCardView {
                     .foregroundColor(userOnlineColor)
                     .frame(width: userOnlineCircleFrameSize)
                     .background {Circle()
-                            .stroke(userCountStatusBorderColor, lineWidth: 3)
+                    .stroke(userCountStatusBorderColor, lineWidth: userOnlineCircleBackgroundBorderWidth)
                     }
             }.padding(.horizontal, 2.5)
         }
@@ -133,12 +145,12 @@ extension peopleSectionCardView {
                     .overlay(
                         Text( "+\(user.name.count)")
                             .font(.system(size: userNotificationFontSize))
-                            .fontWeight(.heavy)
+                            .fontWeight(userCountStatusTextFontWeight)
                             .foregroundColor(userCountStatusTextColor )
                     )
                     .background {
                         Circle()
-                            .stroke(userOnlineBorderColor, lineWidth: 3)
+                            .stroke(userOnlineBorderColor, lineWidth: userCountStatusBackgroundBorderWidth)
                     }.offset(x:4, y: 3)
             }.padding(.horizontal, 2.5)
         }
@@ -154,37 +166,37 @@ extension peopleSectionCardView {
    }
     
    
-    // MARK: users name and role stack
+    // MARK: - users name and role stack
     //user name and role vertical stack
     private var personNameAndRoleStack: some View {
         VStack (alignment: .leading, spacing: 2){
-          usersNameView(user: user, userNameFontSize: $userNameFontSize, userNameTextColor: $userNameTextColor)
+            usersNameView(user: user, userNameFontSize: $userNameFontSize, userNameTextColor: $userNameTextColor, userNameFontWeight: $userNameFontWeight)
             if user.role != nil {
-                usersRoleView(user: user, userRolefontSize: $userRolefontSize, userRoleTextColor: $userRoleTextColor)
+                usersRoleView(user: user, userRolefontSize: $userRolefontSize, userRoleTextColor: $userRoleTextColor, userRoleFontWeight: $userRoleFontWeight)
             }
             }
     }
     
     
-    // MARK: users notification
+    // MARK: - users notification
     // users notification view
     @ViewBuilder
     private var userNotificationView: some View {
         if user.notifications >= 1  {
             Circle()
                 .frame(width: userNotificationBackgroundSize , height: userNotificationBackgroundSize)
-                .foregroundColor(user.name.count <= 0 ? .clear : userNotificationBackground)
+                .foregroundColor(user.name.count <= 0 ? zeroUserNotificationBackgroundColor : userNotificationBackgroundColor)
                 .overlay(
                     Text( "\(user.notifications)")
                         .font(.system(size: userNotificationFontSize))
-                        .fontWeight(.bold)
-                        .foregroundColor(user.name.count <= 0 ? .clear :.white)
+                        .fontWeight(userNotificationFontWeight)
+                        .foregroundColor(user.name.count <= 0 ? zeroNotificationTextColor :someNotificationTextColor)
                 )
         }
     }
     
     
-    // MARK: person card
+    // MARK: - person card
     //person card view
     private var personCard: some View {
         HStack (alignment: .center) {
@@ -193,7 +205,7 @@ extension peopleSectionCardView {
             Spacer(minLength: 50)
          
          userNotificationView
-        }.padding(15)
+        }.padding(Spacer.myTheme.large)
    }
     
     

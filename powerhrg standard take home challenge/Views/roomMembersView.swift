@@ -7,27 +7,31 @@
 
 import SwiftUI
 
-struct roomMembersView: View {
+  struct roomMembersView: View {
   @Environment(\.presentationMode) var presentationMode
   let space : room
    
   // state properties for naviagtion bar
-  @State var memberCountTextSize : CGFloat = 12
-  @State var memberCountTextColor : Color = Color.init("Data1")
+  @State var memberCountTextSize : CGFloat = Font.MyTheme.FontSize2
+  @State var memberCountTextColor : Color = Color.MyTheme.dataColors.Data1
+  @State var memberCountFontWeight : Font.Weight = Font.Weight.MyTheme.boldFont
+  @State var memberCountBackgroundBorderWidth: CGFloat = Circle.MyTheme.lineWidth2
     
   // state properties for empty members list message
-  @State var emptyMembersListMessage : String = "There are no members \n in this room \n at the moment!!!"
+  @State var emptyMembersListMessage : String = Text.MyMessage.NoMembers
+      @State var emptyMembersListMessageTextColor : Color = Color.MyTheme.otherColors.gray
+  @State var emptyMembersListMessageFontWeight : Font.Weight = Font.Weight.MyTheme.boldFont
     
-    var body: some View {
-        membersListAndEmptyMembersListView
-        .navigationTitle(space.name)
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarItems(trailing:memberCount)
-    }
+  var body: some View {
+    membersListAndEmptyMembersListView
+    .navigationTitle(space.name)
+    .navigationBarTitleDisplayMode(.inline)
+    .navigationBarItems(trailing:memberCount)
+}
 }
 
-//MARK: preview
-struct roomMembersView_Previews: PreviewProvider {
+  // MARK: - preview
+  struct roomMembersView_Previews: PreviewProvider {
     static var someRoom = room(name: "room name", topic: "room topic", description: "purpose for the room,purpose for the room purpose for the room purpose for the room purpose for the room purpose for the room", active: true, members: [], roomPic: "r7")
     
     static var previews: some View {
@@ -36,17 +40,17 @@ struct roomMembersView_Previews: PreviewProvider {
 }
 
 
-//MARK: extension
-extension roomMembersView {
+  // MARK: - extension
+  extension roomMembersView {
     
     // navigation bar member count
     private var memberCount : some View {
     Text("\(space.members.count)")
     .foregroundColor(memberCountTextColor)
-    .fontWeight(.bold)
+    .fontWeight(memberCountFontWeight)
     .font(.system(size: memberCountTextSize))
-    .padding(5)
-    .background(Circle().stroke(memberCountTextColor, lineWidth: 1))
+    .padding(Spacer.myTheme.small)
+    .background(Circle().stroke(memberCountTextColor, lineWidth: memberCountBackgroundBorderWidth))
     }
     
     // members list
@@ -57,7 +61,7 @@ extension roomMembersView {
                     peopleSectionCardView(user: user)
                 }
             }
-        } .padding(10)
+        } .padding(Spacer.myTheme.medium)
     }
     
     // empty members list
@@ -65,13 +69,13 @@ extension roomMembersView {
         VStack{
             Spacer()
             Text(emptyMembersListMessage)
-                .foregroundColor(.gray)
+                .foregroundColor(emptyMembersListMessageTextColor)
                 .multilineTextAlignment(.center)
-                .font(.system(size: 12))
-                .fontWeight(.bold)
+                .font(.system(size: memberCountTextSize))
+                .fontWeight(emptyMembersListMessageFontWeight)
             Spacer()
         Spacer()
-        } .padding(10)
+        } .padding(Spacer.myTheme.medium)
     }
     
     // members list and empty members list
