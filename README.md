@@ -1,4 +1,4 @@
-# powerhrg standard take home challenge
+# powerhrg standard
 
 > Showcasing my experience and knowledge on building efficient reusable components.
 
@@ -34,6 +34,16 @@ editing easy. the userListView file (first view that appears when the app is lau
 peopleSectionCardView file (structure for the people card). roomSectionCardView file (structure for the room card). room file (file for the room model).
 person file (file for the person model). userListViewModel File (view model for the userListView where all the data is stored and fetched from upon 
 initilization). The assets folder contains all the images and colors used.
+
+![image](https://user-images.githubusercontent.com/60068628/207644331-d972cef8-8494-4f17-8579-d27a6ca9360c.png)
+
+![image](https://user-images.githubusercontent.com/60068628/207644452-ffa63e97-bf45-4685-adec-bd6a58468201.png)
+
+![image](https://user-images.githubusercontent.com/60068628/207644506-a20cdd60-9195-41bf-b2ef-0bb7798df692.png)
+
+![image](https://user-images.githubusercontent.com/60068628/207644575-b835da40-8d71-4950-9125-12d7f93f6f54.png)
+
+
 
 
 
